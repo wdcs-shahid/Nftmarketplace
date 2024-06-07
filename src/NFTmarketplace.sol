@@ -17,7 +17,6 @@ contract NFTMarketPlace {
         uint256 minAskUSDT;
         uint256 timeStartAt;
         uint256 timeEndAt;
-        uint256 currentBid;
         uint256 highestBid;
         address bidderaddr;
         bool listed;
@@ -43,7 +42,6 @@ contract NFTMarketPlace {
             minAskUSDT: _minAskUSDT,
             timeStartAt: block.timestamp,
             timeEndAt: block.timestamp + 2 minutes,
-            currentBid: 0,
             highestBid: 0,
             bidderaddr: address(0),
             listed: true,
@@ -102,14 +100,8 @@ contract NFTMarketPlace {
             "Insufficient Allowance"
         );
 
-        nftdetail.currentBid = _bidAmount;
-        if (_bidAmount > nftdetail.currentBid) {
             nftdetail.highestBid = _bidAmount;
             nftdetail.bidderaddr = msg.sender;
-        } else {
-            nftdetail.highestBid = nftdetail.currentBid;
-            nftdetail.bidderaddr = msg.sender;
-        }
     }
 
     function execute(uint256 _listId) external {
